@@ -5,6 +5,7 @@ import Home from "../routes/Home";
 import Join from "../routes/Join";
 import Navigation from "components/Navigation";
 import Profile from "routes/Profile";
+import PasswordReset from "routes/PasswordReset";
 
 const AppRouter = ({ isLoggedIn, userObj }) => {
     return (
@@ -27,6 +28,9 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
                         </Route>
                         <Route exact path="/Join">
                             <Join />
+                        </Route>
+                        <Route exact path="/PasswordReset">
+                            <PasswordReset />
                         </Route>
                     </>
 
