@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDcspIydtYIjrFNDPdrlEGbmPfIIvVS3zw",
@@ -11,4 +12,6 @@ const firebaseConfig = {
 //하드코딩 된 키 코드는 나중에 보완 예정.
 
   //위의 설정대로 초기화 시켜준다.
-export default firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
+
+    export const authService = firebase.auth();
