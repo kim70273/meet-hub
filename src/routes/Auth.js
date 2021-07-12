@@ -1,4 +1,4 @@
-import { authService } from "fbase";
+import { authService, firebaseInstance } from "fbase";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -26,14 +26,27 @@ const Auth = () => {
         }
     }
 
+    const onSocialClick = async (event) => {
+        const {target:{name}} = event;
+        let provider;
+        if(name === "google"){
+            provider = new firebaseInstance.auth.GoogleAuthProvider();
+        }
+        await authService.signInWithPopup(provider);
+    }
+
     return (
         <>
             <form onSubmit={onLogin} >
-                <input type="email" placeholder="이메일" name="email" required onChange={onChange} />
-                <input type="password" placeholder="비밀번호" name="password" required onChange={onChange} />
-                <input type="submit" value="login" />
+                <input name="email" type="email" placeholder="이메일" required value={email} onChange={onChange} />
+                <input name="password" type="password" placeholder="비밀번호" required value={password} onChange={onChange} />
+                <input type="submit" value="Log in" />
             </form>
+            <div>
             <Link to="/Join">회원가입</Link>
+            <button name="google" onClick={onSocialClick}>Continue with Google</button>
+            </div>
+
         </>
     )
 }
