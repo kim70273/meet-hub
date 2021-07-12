@@ -1,14 +1,15 @@
 import { authService } from "fbase";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const Auth = () => {
+const Join = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const history = useHistory();
 
     const onChange = (event) => {
         const {
-            target: { name, value }
+            target: {name, value}
         } = event;
         if (name === "email") {
             setEmail(value);
@@ -17,10 +18,11 @@ const Auth = () => {
         }
     }
 
-    const onLogin = async (event) => {
+    const onJoin = async (event) => {
         event.preventDefault();
         try {
-            await authService.signInWithEmailAndPassword(email, password);
+            await authService.createUserWithEmailAndPassword(email, password);
+            history.push("/");
         } catch (error) {
             console.log(error.message);
         }
@@ -28,14 +30,13 @@ const Auth = () => {
 
     return (
         <>
-            <form onSubmit={onLogin} >
+            <form onSubmit={onJoin}>
                 <input type="email" placeholder="이메일" name="email" required onChange={onChange} />
                 <input type="password" placeholder="비밀번호" name="password" required onChange={onChange} />
-                <input type="submit" value="login" />
+                <input type="submit" value="회원가입" />
             </form>
-            <Link to="/Join">회원가입</Link>
         </>
     )
 }
 
-export default Auth;
+export default Join;
